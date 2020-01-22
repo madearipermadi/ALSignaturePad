@@ -7,9 +7,9 @@ codeunit 50109 "Web Service Mgt."
 
     procedure GetOauthToken()
     var
-        TokenURL: Label 'https://login.windows.net/tamanduta.onmicrosoft.com/oauth2/token';
-        ClientId: Label 'f76e6553-4af6-4fd8-9a3d-53e38ff96d88';
-        ClientSecret: Label '2K_pGoWNRux5eXl9VEu9W[?eH:xU8l:]';
+        TokenURL: Label 'https://login.windows.net/YourTenantDomain/oauth2/token';
+        ClientId: Label 'YourClientId';
+        ClientSecret: Label 'YourClientSecret';
         Resource: Label 'https://api.businesscentral.dynamics.com';
         RequestBody: Label 'grant_type=client_credentials&client_id=%1&client_secret=%2&resource=%3';
         HttpClient: HttpClient;
