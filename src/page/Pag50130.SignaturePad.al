@@ -61,6 +61,43 @@ page 50130 "Signature Pad"
                 end;
             }
 
+            action("Update Profile")
+            {
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    UserPersonalizationRec: record "User Personalization";
+                    ProfileRec: record "All Profile";
+                    SessionSettingVar: SessionSettings;
+                    ProfileScope: Option System,Tenant;
+                begin
+                    UserPersonalizationRec.SetRange("User ID", UserId);
+                    if UserPersonalizationRec.FindFirst() then begin
+
+                        UserPersonalizationRec."Profile ID" := 'NEWPROFILE';
+                        UserPersonalizationRec.Modify();
+
+                        ProfileRec.SetRange("Profile ID", UserPersonalizationRec."Profile ID");
+                        ProfileRec.FindFirst();
+
+
+
+                        SessionSettingVar.Init();
+
+                        SessionSettingVar.Company := CompanyName;
+                        SessionSettingVar.ProfileId := UserPersonalizationRec."Profile ID";
+                        SessionSettingVar.ProfileAppId := ProfileRec."App ID";
+                        SessionSettingVar.ProfileSystemScope := ProfileScope = ProfileScope::System;
+                        SessionSettingVar.LanguageId := UserPersonalizationRec."Language ID";
+                        SessionSettingVar.LocaleId := UserPersonalizationRec."Locale ID";
+                        SessionSettingVar.TimeZone := UserPersonalizationRec."Time Zone";
+
+                        SessionSettingVar.RequestSessionUpdate(true);
+                    end;
+                end;
+            }
+
             action("Undo")
             {
                 ApplicationArea = All;

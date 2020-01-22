@@ -31,6 +31,19 @@ pageextension 50100 "PostedSalesShipmentExt" extends "Posted Sales Shipment" //1
                     SignaturePad.RunModal();
                 end;
             }
+
+            action("Get Token")
+            {
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    WSMgt: Codeunit "Web Service Mgt.";
+                begin
+                    WSMgt.GetOauthToken();
+                end;
+            }
         }
+
     }
 }
